@@ -5,7 +5,7 @@ import "./MapBox.css";
 const axios = require("axios");
 
 mapboxgl.accessToken =
-  "pk.eyJ1IjoiZGllZ29sZW9ybyIsImEiOiJjbDN4ZnV5enUwdHo0M2RxaDJ1ZWoxdjh0In0.LF-oI9_49zOGCGxCCHgYKA";
+  "-----------";
 
 const MapBox = ({ displayMap, selectedNhood, triggerZoom }) => {
   const mapContainerRef = useRef(null);
