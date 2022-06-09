@@ -66,14 +66,14 @@ const MapBox = ({ displayMap, selectedNhood, triggerZoom }) => {
             id: "nyc-neighborhoods",
             source: {
               type: "vector",
-              url: "mapbox://diegoleoro.aff9tmlv" // <--- Add the Map ID you copied here
+              url: "mapbox://diegoleoro.aff9tmlv" // <--- Map id 
             },
-            "source-layer": "nyc-neighborhoods-2qrfoq", // <--- Add the source layer name you copied here
+            "source-layer": "nyc-neighborhoods-2qrfoq", // <--- Source layer
             type: "fill",
             paint: {
-              "fill-color": "#f9f75d", //this is the color you want your tileset to have (I used a nice purple color),
+              "fill-color": "#f9f75d", 
               "fill-opacity": 0.2,
-              "fill-outline-color": "#F2F2F2" //this helps us distinguish individual countries a bit better by giving them an outline
+              "fill-outline-color": "#F2F2F2" 
             }
           });
 
