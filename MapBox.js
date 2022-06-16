@@ -4,17 +4,18 @@ import "./MapBox.css";
 
 const axios = require("axios");
 
-mapboxgl.accessToken =
-  "-----------";
 
-const MapBox = ({ displayMap, selectedNhood, triggerZoom }) => {
+mapboxgl.accessToken =
+  "========";
+
+const MapBox = ({ displayMap, selectedNhood, triggerZoom, onSelectedNhoodCoords }) => {
   const mapContainerRef = useRef(null);
   const [lng, setLng] = useState(-74.006);
   const [lat, setLat] = useState(40.7128);
   const [zoom, setZoom] = useState(8.5);
 
   const display_map = displayMap === false ? "no-display" : "display-element";
-  const display_label = displayMap === false ? "display-element" : "no-display";
+  // const display_label = displayMap === false ? "display-element" : "no-display";
 
   //------------------------------------------------------------------- //
 
@@ -27,8 +28,7 @@ const MapBox = ({ displayMap, selectedNhood, triggerZoom }) => {
         center: [lng, lat],
         zoom: zoom
       });
-
-      map.resize();
+      // map.resize();
     }, 2000);
   }, []);
 
@@ -48,13 +48,16 @@ const MapBox = ({ displayMap, selectedNhood, triggerZoom }) => {
         "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
           `${selectedNhood} New York, New York` +
           ".json?access_token=" +
-          "-------------" +
+          "========" +
           "&limit=1"
       )
       .then(res => {
-        // console.log(res);
 
         coordinates = res.data.features[0].center;
+
+
+        onSelectedNhoodCoords(coordinates)
+
 
         map.flyTo({
           center: coordinates,
@@ -66,26 +69,30 @@ const MapBox = ({ displayMap, selectedNhood, triggerZoom }) => {
             id: "nyc-neighborhoods",
             source: {
               type: "vector",
-              url: "mapbox://diegoleoro.aff9tmlv" // <--- Map id 
+              url: "mapbox://diegoleoro.aff9tmlv" // <--- Add the Map ID you copied here
             },
-            "source-layer": "nyc-neighborhoods-2qrfoq", // <--- Source layer
+            "source-layer": "nyc-neighborhoods-2qrfoq", // <--- Add the source layer name you copied here
             type: "fill",
             paint: {
-              "fill-color": "#f9f75d", 
+              "fill-color": "#f9f75d", //this is the color you want your tileset to have (I used a nice purple color),
               "fill-opacity": 0.2,
-              "fill-outline-color": "#F2F2F2" 
+              "fill-outline-color": "#F2F2F2" //this helps us distinguish individual countries a bit better by giving them an outline
             }
           });
-
-          console.log(selectedNhood)
 
           map.setFilter(
             "nyc-neighborhoods",
             ["in", "name"].concat([selectedNhood])
           );
-        });
 
+        });
       });
+
+
+
+
+     
+
   }
 
   // console.log(selectedNhood);
